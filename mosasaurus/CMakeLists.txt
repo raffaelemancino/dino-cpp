@@ -1,0 +1,1 @@
+add_library(Mosasaurus app.cpp ioc.cpp)

@@ -21,8 +21,8 @@ MosaApp *MosaApp::getInstance()
 
 void MosaApp::bootstrap(MosaModule *firstModule)
 {
-    std::cout << "App configuration" << std::endl;
     this->bootstrapModule = firstModule;
+    std::cout << "App configuration End" << std::endl;
 }
 
 void MosaApp::startupLogo()

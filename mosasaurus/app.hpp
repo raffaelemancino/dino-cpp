@@ -4,22 +4,23 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
-#include "ioc.hpp"
+#include "module.hpp"
 
 namespace Mosasaurus
 {
-    class App
+    class MosaApp
     {
     private:
-        IoC::Context *context = 0;
+        static MosaApp *app;
+        MosaModule *bootstrapModule;
+        MosaApp();
+        void startupLogo();
 
     public:
-        App();
-        ~App();
-        App(const App &);
-        void configure(std::map<std::string, IoC::Injectable *>);
-        IoC::Context *getContext();
+        static MosaApp *getInstance();
+        void bootstrap(MosaModule *);
     };
 }
 

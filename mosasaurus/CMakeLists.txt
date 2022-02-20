@@ -1,1 +1,1 @@
-add_library(Mosasaurus app.cpp ioc.cpp)
+add_library(Mosasaurus app.cpp module.cpp context.cpp models.cpp)

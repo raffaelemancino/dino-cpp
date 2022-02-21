@@ -20,7 +20,14 @@ namespace Mosasaurus
 
     public:
         static MosaApp *getInstance();
-        void bootstrap(MosaModule *);
+
+        template <class M>
+        void bootstrap()
+        {
+            MosaModule *firstModule = new M();
+            this->bootstrapModule = firstModule;
+            std::cout << "App configuration End" << std::endl;
+        };
     };
 }
 

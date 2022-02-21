@@ -18,7 +18,7 @@ namespace IoC
 
     public:
         void setContext(Mosasaurus::MosaContext *c);
-        virtual void onLoadEnd() = 0;
+        virtual void onLoadEnd(){};
     };
 
     class Bean : public Injectable

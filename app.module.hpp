@@ -41,7 +41,7 @@ public:
     }
     void onLoadEnd()
     {
-        this->test = (Test *)this->context->inject("test-component");
+        this->test = this->context->inject<Test>("test-component");
         this->getTestValue();
     }
 };
@@ -52,13 +52,9 @@ private:
 public:
     AppModule()
     {
-        std::map<std::string, IoC::Injectable *> services;
-        services.insert(std::make_pair("test-component", new Test()));
-        services.insert(std::make_pair("rm-service", new RM()));
-
-        std::map<std::string, IoC::Controller *> controllers;
-        std::map<std::string, Mosasaurus::MosaModule *> imports;
-        this->import(services, controllers);
+        this->addService<RM>("rm-service");
+        this->addService<Test>("test-component");
+        this->registerInjectables();
     }
 };
 

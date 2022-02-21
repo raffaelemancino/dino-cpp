@@ -19,12 +19,6 @@ MosaApp *MosaApp::getInstance()
     return app;
 }
 
-void MosaApp::bootstrap(MosaModule *firstModule)
-{
-    this->bootstrapModule = firstModule;
-    std::cout << "App configuration End" << std::endl;
-}
-
 void MosaApp::startupLogo()
 {
     std::string logo = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\

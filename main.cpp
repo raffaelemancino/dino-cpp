@@ -10,5 +10,5 @@ using namespace std;
 int main()
 {
     Mosasaurus::MosaApp *application = Mosasaurus::MosaApp::getInstance();
-    application->bootstrap((Mosasaurus::MosaModule *)new AppModule());
+    application->bootstrap<AppModule>();
 }

@@ -69,3 +69,14 @@ void MosaApp::startupLogo()
     std::cout << logo << std::endl;
     std::cout << name << std::endl;
 }
+
+void MosaApp::bind(int port, std::string baseUrl = "www")
+{
+    this->server = new Mongoose::Server(port, baseUrl.c_str());
+    this->server->start();
+    std::cout << "Server started at port " << port << " with base name /" << baseUrl << std::endl;
+    while (true)
+    {
+        this_thread::sleep_for(chrono::milliseconds(500));
+    }
+}

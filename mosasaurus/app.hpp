@@ -5,6 +5,10 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <cstring>
+#include <thread>
+
+#include "mongoose-cpp/mongoose/Server.h"
 
 #include "module.hpp"
 
@@ -18,6 +22,9 @@ namespace Mosasaurus
         MosaApp();
         void startupLogo();
 
+        // web server
+        Mongoose::Server *server = 0;
+
     public:
         static MosaApp *getInstance();
 
@@ -28,6 +35,7 @@ namespace Mosasaurus
             this->bootstrapModule = firstModule;
             std::cout << "App configuration End" << std::endl;
         };
+        void bind(int, std::string);
     };
 }
 

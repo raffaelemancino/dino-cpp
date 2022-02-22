@@ -11,4 +11,5 @@ int main()
 {
     Mosasaurus::MosaApp *application = Mosasaurus::MosaApp::getInstance();
     application->bootstrap<AppModule>();
+    application->bind(8080, "api");
 }

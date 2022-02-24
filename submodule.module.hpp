@@ -2,10 +2,13 @@
 #include "mosasaurus/models.hpp"
 #include "app.module.hpp"
 
+class RM;
+
 class Test : public IoC::Component
 {
 private:
     int a = 0;
+    RM *rm = nullptr;
 
 public:
     int getA()
@@ -18,6 +21,7 @@ public:
     }
     void onLoadEnd()
     {
+        this->rm = this->context->inject<RM>("rm-service");
     }
 };
 
@@ -28,6 +32,5 @@ public:
     {
         this->addService<Test>("test-component");
         this->addExportService("test-component");
-        this->registerInjectables();
     }
 };

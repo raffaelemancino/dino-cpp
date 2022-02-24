@@ -17,6 +17,11 @@ void MosaModule::registerInjectables()
     {
         controller.second->onLoadEnd();
     }
+
+    for (auto &module : this->imports)
+    {
+        module.second->registerInjectables();
+    }
 }
 
 void MosaModule::addExportService(std::string name)
@@ -45,4 +50,9 @@ void MosaModule::addExportModule(std::string name)
     {
         throw std::runtime_error("No module with name: " + name + " can be exported");
     }
+}
+
+void MosaModule::setParentModule(MosaModule *module)
+{
+    this->parentModule = module;
 }

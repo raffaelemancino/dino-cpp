@@ -1,8 +1,6 @@
 #ifndef MODELS
 #define MODELS
 
-#include "context.hpp"
-
 // forward declaration
 namespace Mosasaurus
 {
@@ -18,6 +16,10 @@ namespace IoC
 
     public:
         void setContext(Mosasaurus::MosaModule *c);
+
+        /**
+         *  Function to be called for inject other services 
+         */
         virtual void onLoadEnd(){};
     };
 

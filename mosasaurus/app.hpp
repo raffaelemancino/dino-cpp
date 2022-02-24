@@ -36,6 +36,7 @@ namespace Mosasaurus
         {
             MosaModule *firstModule = new M();
             this->bootstrapModule = firstModule;
+            this->bootstrapModule->registerInjectables();
             std::cout << "App configuration End" << std::endl;
         };
         /**

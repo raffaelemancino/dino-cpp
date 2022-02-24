@@ -6,6 +6,6 @@ project (Mosasaurus)
 
 add_subdirectory(mongoose-cpp)
 
-add_library(Mosasaurus app.cpp module.cpp context.cpp models.cpp)
+add_library(Mosasaurus app.cpp module.cpp models.cpp)
 
 target_link_libraries(Mosasaurus PUBLIC mongoose)

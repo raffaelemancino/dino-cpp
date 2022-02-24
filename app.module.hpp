@@ -39,7 +39,6 @@ public:
         // this->addService<Test>("test-component");
         // this->addExportService("rm-services");
         this->addModule<SubModule>("submodule");
-        this->registerInjectables();
     }
 };
 

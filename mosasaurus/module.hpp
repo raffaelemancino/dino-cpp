@@ -13,6 +13,7 @@ namespace Mosasaurus
     class MosaModule
     {
     private:
+        MosaModule *parentModule = nullptr;
         std::map<std::string, IoC::Injectable *> services;
         std::map<std::string, IoC::Controller *> controllers;
         std::map<std::string, MosaModule *> imports;
@@ -22,10 +23,6 @@ namespace Mosasaurus
 
     protected:
         MosaModule();
-        /**
-         *  Compulsory function to avoid IoC in module
-         */
-        void registerInjectables();
 
         template <class T>
         void addService(std::string name)
@@ -65,6 +62,7 @@ namespace Mosasaurus
             if (std::is_base_of<MosaModule, T>::value)
             {
                 MosaModule *mosaModule = new T();
+                mosaModule->setParentModule(this);
                 this->imports[name] = mosaModule;
                 std::cout << "Adding module: " << name << std::endl;
             }
@@ -93,26 +91,31 @@ namespace Mosasaurus
             {
             }
 
-            if (!value)
+            if (value)
+                return (T *)value;
+
+            if (this->parentModule)
             {
-                for (const auto &module : this->imports)
-                {
-                    if (module.second)
-                    {
-                        value = module.second->injectForModuleParent<T>(name);
-                        if (value)
-                            return (T *)value;
-                    }
-                }
-                if (!value)
-                    throw std::runtime_error("Injectable reference not foud");
+                value = this->parentModule->injectForModuleChild<T>(name);
+                if (value)
+                    return (T *)value;
             }
 
-            return (T *)value;
+            for (const auto &module : this->imports)
+            {
+                value = module.second->injectForModuleParent<T>(name);
+                if (value)
+                    return (T *)value;
+            }
+
+            if (value)
+                return (T *)value;
+
+            throw std::runtime_error("Injectable reference not foud for \"" + name + "\"");
         };
 
         /**
-         * Serach in module if there are service injectable for parent and ask to his child modules
+         *  Serach if child module have a serice
          */
         template <class T>
         T *injectForModuleParent(std::string name)
@@ -124,23 +127,54 @@ namespace Mosasaurus
             }
             catch (const std::exception &e)
             {
-                std::cerr << e.what() << std::endl;
             }
+            if (service)
+                return (T *)service;
 
-            if (!service)
+            for (const auto &module : this->exportedModules)
             {
-                for (const auto &module : this->exportedModules)
-                {
-                    if (module.second)
-                    {
-                        service = module.second->injectForModuleParent<T>(name);
-                        if (service)
-                            return (T *)service;
-                    }
-                }
+                service = module.second->injectForModuleParent<T>(name);
+                if (service)
+                    return (T *)service;
             }
             return (T *)service;
         }
+
+        /**
+         *  Search if parent module have a service 
+         */
+        template <class T>
+        T *injectForModuleChild(std::string name)
+        {
+            IoC::Injectable *value = nullptr;
+            try
+            {
+                value = this->services.at(name);
+            }
+            catch (const std::exception &e)
+            {
+            }
+
+            if (value)
+                return (T *)value;
+
+            if (this->parentModule)
+            {
+                value = this->parentModule->injectForModuleChild<T>(name);
+            }
+
+            return (T *)value;
+        }
+
+        /**
+         *  Set its partend module for service search
+         */
+        void setParentModule(MosaModule *);
+
+        /**
+         *  Compulsory function to avoid IoC in module
+         */
+        void registerInjectables();
     };
 
 };

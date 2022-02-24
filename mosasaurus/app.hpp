@@ -28,6 +28,9 @@ namespace Mosasaurus
     public:
         static MosaApp *getInstance();
 
+        /**
+         * App start with first module
+         */
         template <class M>
         void bootstrap()
         {
@@ -35,6 +38,9 @@ namespace Mosasaurus
             this->bootstrapModule = firstModule;
             std::cout << "App configuration End" << std::endl;
         };
+        /**
+         *  Start Web Server with port and base url
+         */
         void bind(int, std::string);
     };
 }

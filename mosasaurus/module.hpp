@@ -22,6 +22,9 @@ namespace Mosasaurus
 
     protected:
         MosaModule();
+        /**
+         *  Compulsory function to avoid IoC in module
+         */
         void registerInjectables();
 
         template <class T>
@@ -30,7 +33,7 @@ namespace Mosasaurus
             if (std::is_base_of<IoC::Injectable, T>::value)
             {
                 IoC::Injectable *service = new T();
-                this->services.insert(std::make_pair(name, service));
+                this->services[name] = service;
                 std::cout << "Adding service: " << name << std::endl;
                 service->setContext(this);
             }
@@ -46,7 +49,7 @@ namespace Mosasaurus
             if (std::is_base_of<IoC::Controller, T>::value)
             {
                 IoC::Controller *controller = new T();
-                this->controllers.insert(std::make_pair(name, controller));
+                this->controllers[name] = controller;
                 std::cout << "Adding controller: " << name << std::endl;
                 controller->setContext(this);
             }
@@ -62,7 +65,7 @@ namespace Mosasaurus
             if (std::is_base_of<MosaModule, T>::value)
             {
                 MosaModule *mosaModule = new T();
-                this->imports.insert(std::make_pair(name, mosaModule));
+                this->imports[name] = mosaModule;
                 std::cout << "Adding module: " << name << std::endl;
             }
             else
@@ -75,11 +78,21 @@ namespace Mosasaurus
         void addExportModule(std::string name);
 
     public:
+        /**
+         * Inject service searching in self module and in child modules
+         */
         template <class T>
         T *inject(std::string name)
         {
             IoC::Injectable *value = nullptr;
-            value = this->services[name];
+            try
+            {
+                value = this->services.at(name);
+            }
+            catch (std::exception &e)
+            {
+            }
+
             if (!value)
             {
                 for (const auto &module : this->imports)
@@ -98,11 +111,22 @@ namespace Mosasaurus
             return (T *)value;
         };
 
+        /**
+         * Serach in module if there are service injectable for parent and ask to his child modules
+         */
         template <class T>
         T *injectForModuleParent(std::string name)
         {
             IoC::Injectable *service = nullptr;
-            service = this->exportedServices[name];
+            try
+            {
+                service = this->exportedServices.at(name);
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << e.what() << std::endl;
+            }
+
             if (!service)
             {
                 for (const auto &module : this->exportedModules)

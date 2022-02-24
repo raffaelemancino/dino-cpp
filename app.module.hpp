@@ -10,25 +10,6 @@
 
 #include "submodule.module.hpp"
 
-class Test : public IoC::Component
-{
-private:
-    int a = 0;
-
-public:
-    int getA()
-    {
-        return this->a;
-    }
-    void setA(int newA)
-    {
-        this->a = newA;
-    }
-    void onLoadEnd()
-    {
-    }
-};
-
 class RM : public IoC::Service
 {
 private:
@@ -43,7 +24,7 @@ public:
     }
     void onLoadEnd()
     {
-        this->test = this->context->inject<Test>("test-components");
+        this->test = this->context->inject<Test>("test-component");
         this->getTestValue();
     }
 };
@@ -55,7 +36,7 @@ public:
     AppModule()
     {
         this->addService<RM>("rm-service");
-        this->addService<Test>("test-component");
+        // this->addService<Test>("test-component");
         // this->addExportService("rm-services");
         this->addModule<SubModule>("submodule");
         this->registerInjectables();

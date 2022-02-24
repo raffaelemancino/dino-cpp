@@ -2,7 +2,7 @@
 
 using namespace Mosasaurus;
 
-MosaApp *MosaApp::app = 0;
+MosaApp *MosaApp::app = nullptr;
 
 MosaApp::MosaApp()
 {

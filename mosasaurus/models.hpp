@@ -14,7 +14,7 @@ namespace IoC
     class Injectable
     {
     protected:
-        Mosasaurus::MosaModule *context = 0;
+        Mosasaurus::MosaModule *context = nullptr;
 
     public:
         void setContext(Mosasaurus::MosaModule *c);

@@ -78,15 +78,18 @@ namespace Mosasaurus
         template <class T>
         T *inject(std::string name)
         {
-            IoC::Injectable *value = 0;
+            IoC::Injectable *value = nullptr;
             value = this->services[name];
             if (!value)
             {
                 for (const auto &module : this->imports)
                 {
-                    value = module.second->injectForModuleParent<T>(name);
-                    if (value)
-                        return (T *)value;
+                    if (module.second)
+                    {
+                        value = module.second->injectForModuleParent<T>(name);
+                        if (value)
+                            return (T *)value;
+                    }
                 }
                 if (!value)
                     throw std::runtime_error("Injectable reference not foud");
@@ -98,15 +101,18 @@ namespace Mosasaurus
         template <class T>
         T *injectForModuleParent(std::string name)
         {
-            IoC::Injectable *service;
+            IoC::Injectable *service = nullptr;
             service = this->exportedServices[name];
             if (!service)
             {
                 for (const auto &module : this->exportedModules)
                 {
-                    service = module.second->injectForModuleParent<T>(name);
-                    if (service)
-                        return (T *)service;
+                    if (module.second)
+                    {
+                        service = module.second->injectForModuleParent<T>(name);
+                        if (service)
+                            return (T *)service;
+                    }
                 }
             }
             return (T *)service;

@@ -18,12 +18,12 @@ namespace Mosasaurus
     {
     private:
         static MosaApp *app;
-        MosaModule *bootstrapModule;
+        MosaModule *bootstrapModule = nullptr;
         MosaApp();
         void startupLogo();
 
         // web server
-        Mongoose::Server *server = 0;
+        Mongoose::Server *server = nullptr;
 
     public:
         static MosaApp *getInstance();

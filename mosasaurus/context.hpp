@@ -25,7 +25,7 @@ namespace Mosasaurus
         template <class T>
         T *inject(std::string name)
         {
-            IoC::Injectable *value = 0;
+            IoC::Injectable *value = nullptr;
             value = this->injectionMap[name];
             if (!value)
             {

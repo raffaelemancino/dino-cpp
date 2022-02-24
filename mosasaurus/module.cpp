@@ -10,18 +10,24 @@ void MosaModule::registerInjectables()
 {
     for (const auto &service : this->services)
     {
-        service.second->onLoadEnd();
+        if (service.second)
+        {
+            service.second->onLoadEnd();
+        }
     }
 
     for (const auto &controller : this->controllers)
     {
-        controller.second->onLoadEnd();
+        if (controller.second)
+        {
+            controller.second->onLoadEnd();
+        }
     }
 }
 
 void MosaModule::addExportService(std::string name)
 {
-    IoC::Injectable *service;
+    IoC::Injectable *service = nullptr;
     service = this->services[name];
     if (service)
     {
@@ -35,7 +41,7 @@ void MosaModule::addExportService(std::string name)
 
 void MosaModule::addExportModule(std::string name)
 {
-    Mosasaurus::MosaModule *module;
+    Mosasaurus::MosaModule *module = nullptr;
     module = this->imports[name];
     if (module)
     {

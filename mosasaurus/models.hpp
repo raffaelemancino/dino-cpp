@@ -6,7 +6,7 @@
 // forward declaration
 namespace Mosasaurus
 {
-    class MosaContext;
+    class MosaModule;
 };
 
 namespace IoC
@@ -14,10 +14,10 @@ namespace IoC
     class Injectable
     {
     protected:
-        Mosasaurus::MosaContext *context = 0;
+        Mosasaurus::MosaModule *context = 0;
 
     public:
-        void setContext(Mosasaurus::MosaContext *c);
+        void setContext(Mosasaurus::MosaModule *c);
         virtual void onLoadEnd(){};
     };
 

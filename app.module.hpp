@@ -8,6 +8,8 @@
 #include "mosasaurus/module.hpp"
 #include "mosasaurus/models.hpp"
 
+#include "submodule.module.hpp"
+
 class Test : public IoC::Component
 {
 private:
@@ -41,7 +43,7 @@ public:
     }
     void onLoadEnd()
     {
-        this->test = this->context->inject<Test>("test-component");
+        this->test = this->context->inject<Test>("test-components");
         this->getTestValue();
     }
 };
@@ -54,6 +56,8 @@ public:
     {
         this->addService<RM>("rm-service");
         this->addService<Test>("test-component");
+        // this->addExportService("rm-services");
+        this->addModule<SubModule>("submodule");
         this->registerInjectables();
     }
 };

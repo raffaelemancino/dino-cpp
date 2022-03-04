@@ -49,6 +49,7 @@ namespace Mosasaurus
                 this->controllers[name] = controller;
                 std::cout << "Adding controller: " << name << std::endl;
                 controller->setContext(this);
+                // MosaApp *app = Mosasaurus::MosaApp::getInstance();
             }
             else
             {
@@ -141,7 +142,7 @@ namespace Mosasaurus
         }
 
         /**
-         *  Search if parent module have a service 
+         *  Search if parent module have a service
          */
         template <class T>
         T *injectForModuleChild(std::string name)

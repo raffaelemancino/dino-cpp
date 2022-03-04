@@ -1,6 +1,9 @@
 #ifndef MODELS
 #define MODELS
 
+#include "mongoose-cpp/mongoose/WebController.h"
+#include "mongoose-cpp/mongoose/JsonController.h"
+
 // forward declaration
 namespace Mosasaurus
 {
@@ -18,7 +21,7 @@ namespace IoC
         void setContext(Mosasaurus::MosaModule *c);
 
         /**
-         *  Function to be called for inject other services 
+         *  Function to be called for inject other services
          */
         virtual void onLoadEnd(){};
     };
@@ -35,7 +38,11 @@ namespace IoC
     {
     };
 
-    class Controller : public Component
+    class Controller : public Component, public Mongoose::WebController
+    {
+    };
+
+    class RestController : public Component, public Mongoose::JsonController
     {
     };
 }

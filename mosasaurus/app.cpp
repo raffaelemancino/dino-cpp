@@ -19,6 +19,19 @@ MosaApp *MosaApp::getInstance()
     return app;
 }
 
+Mongoose::Server *MosaApp::getServerInstance()
+{
+    if (this->server)
+    {
+        return this->server;
+    }
+    else
+    {
+        std::invalid_argument("Server uninitialized");
+        return nullptr;
+    }
+}
+
 void MosaApp::startupLogo()
 {
     std::string logo = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\

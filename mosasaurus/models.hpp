@@ -38,11 +38,15 @@ namespace IoC
     {
     };
 
-    class Controller : public Component, public Mongoose::WebController
+    class Controller : public Component, public Mongoose::Controller
     {
     };
 
-    class RestController : public Component, public Mongoose::JsonController
+    class WebController : public Controller
+    {
+    };
+
+    class RestController : public Controller
     {
     };
 }

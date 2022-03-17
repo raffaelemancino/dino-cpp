@@ -1,9 +1,16 @@
 #include "module.hpp"
+#include "app.hpp"
 
 using namespace Mosasaurus;
 
 MosaModule::MosaModule()
 {
+}
+
+void MosaModule::registerController(IoC::Controller *controller)
+{
+    Mosasaurus::MosaApp *appTmp = Mosasaurus::MosaApp::getInstance();
+    appTmp->getServerInstance()->registerController(controller);
 }
 
 void MosaModule::registerInjectables()

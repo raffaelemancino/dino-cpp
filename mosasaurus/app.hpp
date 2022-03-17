@@ -28,6 +28,8 @@ namespace Mosasaurus
     public:
         static MosaApp *getInstance();
 
+        Mongoose::Server *getServerInstance();
+
         /**
          * App start with first module
          */

@@ -25,6 +25,10 @@ public:
     }
 };
 
+class TC : public IoC::RestController
+{
+};
+
 class SubModule : public Mosasaurus::MosaModule
 {
 public:
@@ -32,5 +36,6 @@ public:
     {
         this->addService<Test>("test-component");
         this->addExportService("test-component");
+        this->addController<TC>("test-controller");
     }
 };

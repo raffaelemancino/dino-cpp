@@ -10,6 +10,8 @@
 
 namespace Mosasaurus
 {
+    class MosaApp;
+
     class MosaModule
     {
     private:
@@ -20,6 +22,8 @@ namespace Mosasaurus
 
         std::map<std::string, IoC::Injectable *> exportedServices;
         std::map<std::string, MosaModule *> exportedModules;
+
+        void registerController(IoC::Controller *);
 
     protected:
         MosaModule();
@@ -49,7 +53,6 @@ namespace Mosasaurus
                 this->controllers[name] = controller;
                 std::cout << "Adding controller: " << name << std::endl;
                 controller->setContext(this);
-                // MosaApp *app = Mosasaurus::MosaApp::getInstance();
             }
             else
             {

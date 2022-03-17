@@ -1,5 +1,4 @@
-#ifndef APP
-#define APP
+#pragma once
 
 #include <iostream>
 #include <map>
@@ -47,5 +46,3 @@ namespace Mosasaurus
         void bind(int, std::string);
     };
 }
-
-#endif

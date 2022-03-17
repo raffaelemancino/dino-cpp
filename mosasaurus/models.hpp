@@ -1,5 +1,4 @@
-#ifndef MODELS
-#define MODELS
+#pragma once
 
 #include "mongoose-cpp/mongoose/WebController.h"
 #include "mongoose-cpp/mongoose/JsonController.h"
@@ -50,5 +49,3 @@ namespace IoC
     {
     };
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef MODULE
-#define MODULE
+#pragma once
 
 #include <map>
 #include <vector>
@@ -182,5 +181,3 @@ namespace Mosasaurus
     };
 
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef APPMODULE
-#define APPMODULE
+#pragma once
 
 #include <map>
 #include <string>
@@ -41,5 +40,3 @@ public:
         this->addModule<SubModule>("submodule");
     }
 };
-
-#endif

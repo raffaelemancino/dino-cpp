@@ -1,3 +1,5 @@
+#pragma once
+
 #include "mosasaurus/module.hpp"
 #include "mosasaurus/models.hpp"
 #include "app.module.hpp"

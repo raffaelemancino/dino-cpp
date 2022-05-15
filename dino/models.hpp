@@ -3,21 +3,21 @@
 #include "mongoose-cpp/mongoose/WebController.h"
 #include "mongoose-cpp/mongoose/JsonController.h"
 
-// forward declaration
-namespace Mosasaurus
+namespace Dino
 {
-    class MosaModule;
-};
+    class Module;
+}
 
 namespace IoC
 {
     class Injectable
     {
     protected:
-        Mosasaurus::MosaModule *context = nullptr;
+        Dino::Module *context = nullptr;
 
     public:
-        void setContext(Mosasaurus::MosaModule *c);
+        std::string name = "";
+        void setContext(Dino::Module *c);
 
         /**
          *  Function to be called for inject other services
@@ -39,6 +39,8 @@ namespace IoC
 
     class Controller : public Component, public Mongoose::Controller
     {
+    public:
+        virtual void registerApi(){};
     };
 
     class WebController : public Controller

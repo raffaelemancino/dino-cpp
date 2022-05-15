@@ -4,8 +4,7 @@
 #include <string>
 #include <iostream>
 
-#include "mosasaurus/module.hpp"
-#include "mosasaurus/models.hpp"
+#include "dino/models.hpp"
 
 #include "submodule.module.hpp"
 
@@ -28,7 +27,7 @@ public:
     }
 };
 
-class AppModule : public Mosasaurus::MosaModule
+class AppModule : public Dino::Module
 {
 private:
 public:

@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.13)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project (Mosasaurus)
+project (Dino)
 
 add_subdirectory(mongoose-cpp)
 
-add_library(Mosasaurus app.cpp module.cpp models.cpp)
+add_library(Dino app.cpp module.cpp models.cpp)
 
-target_link_libraries(Mosasaurus PUBLIC mongoose)
+target_link_libraries(Dino PUBLIC mongoose)

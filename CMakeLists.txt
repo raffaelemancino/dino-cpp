@@ -3,8 +3,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(ioc)
 
-add_subdirectory(mosasaurus)
+add_subdirectory(dino)
 
 add_executable(ioc main.cpp)
 
-target_link_libraries(ioc PUBLIC Mosasaurus)
+target_link_libraries(ioc PUBLIC Dino)

@@ -1,8 +1,9 @@
 #pragma once
 
-#include "mosasaurus/module.hpp"
-#include "mosasaurus/models.hpp"
+#include "dino/models.hpp"
 #include "app.module.hpp"
+
+#include <iostream>
 
 class RM;
 
@@ -29,9 +30,14 @@ public:
 
 class TC : public IoC::RestController
 {
+public:
+    void registerApi()
+    {
+        cout << "TC controller register api" << endl;
+    }
 };
 
-class SubModule : public Mosasaurus::MosaModule
+class SubModule : public Dino::Module
 {
 public:
     SubModule()

@@ -1,6 +1,6 @@
-#include "app.hpp"
+#include "mosasaurus.hpp"
 
-using namespace Mosasaurus;
+using namespace Dino;
 
 MosaApp *MosaApp::app = nullptr;
 
@@ -72,13 +72,18 @@ void MosaApp::startupLogo()
 ░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n";
 
-    std::string name = "  __  __                                                                   \n\
- |  \\/  |                                                        _     _   \n\
- | \\  / | ___  ___  __ _ ___  __ _ _   _ _ __ _   _ ___    ___ _| |_ _| |_ \n\
- | |\\/| |/ _ \\/ __|/ _` / __|/ _` | | | | '__| | | / __|  / __|_   _|_   _|\n\
- | |  | | (_) \\__ \\ (_| \\__ \\ (_| | |_| | |  | |_| \\__ \\ | (__  |_|   |_|  \n\
- |_|  |_|\\___/|___/\\__,_|___/\\__,_|\\__,_|_|   \\__,_|___/  \\___|            \n\
-                                                        C++ Modern Web Framework";
+    std::string name =
+        " ________  ___  ________   ________                 ________  ________  ________   "
+        "|\\   ___ \\|\\  \\|\\   ___  \\|\\   __  \\               |\\   ____\\|\\   __  \\|\\   __  \\  "
+        "\\ \\  \\_|\\ \\ \\  \\ \\  \\ \\  \\ \\  \\|\\  \\  ____________\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ "
+        " \\ \\  \\ \\ \\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\|\\____________\\ \\  \\    \\ \\   ____\\ \\   ____\\"
+        "  \\ \\  \\_\\ \\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\|____________|\\ \\  \\____\\ \\  \\___|\\ \\  \\___|"
+        "   \\ \\_______\\ \\__\\ \\__\\ \\__\\ \\_______\\              \\ \\_______\\ \\__\\    \\ \\__\\   "
+        "    \\|_______|\\|__|\\|__| \\|__|\\|_______|               \\|_______|\\|__|     \\|__|   "
+        "                                                                                   "
+        "                                                                                   "
+        "                                                                                   "
+        "                                                        C++ Modern Web Framework";
     std::cout << logo << std::endl;
     std::cout << name << std::endl;
 }
@@ -88,6 +93,7 @@ void MosaApp::bind(int port, std::string baseUrl = "www")
     this->server = new Mongoose::Server(port, baseUrl.c_str());
     this->server->start();
     std::cout << "Server started at port " << port << " with base name /" << baseUrl << std::endl;
+    std::cout << "Loading app API" << std::endl;
     while (true)
     {
         this_thread::sleep_for(chrono::milliseconds(500));

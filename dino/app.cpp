@@ -1,25 +1,25 @@
-#include "mosasaurus.hpp"
+#include "app.hpp"
 
 using namespace Dino;
 
-MosaApp *MosaApp::app = nullptr;
+App *App::app = nullptr;
 
-MosaApp::MosaApp()
+App::App()
 {
     this->startupLogo();
     std::cout << "App Init" << std::endl;
 }
 
-MosaApp *MosaApp::getInstance()
+App *App::getInstance()
 {
     if (!app)
     {
-        app = new MosaApp();
+        app = new App();
     }
     return app;
 }
 
-Mongoose::Server *MosaApp::getServerInstance()
+Mongoose::Server *App::getServerInstance()
 {
     if (this->server)
     {
@@ -32,7 +32,7 @@ Mongoose::Server *MosaApp::getServerInstance()
     }
 }
 
-void MosaApp::startupLogo()
+void App::startupLogo()
 {
     std::string logo = "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\
@@ -72,30 +72,34 @@ void MosaApp::startupLogo()
 ░░░░░░░░░░░░░░░░░░░░░░░░░▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n\
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n";
 
-    std::string name =
-        " ________  ___  ________   ________                 ________  ________  ________   "
-        "|\\   ___ \\|\\  \\|\\   ___  \\|\\   __  \\               |\\   ____\\|\\   __  \\|\\   __  \\  "
-        "\\ \\  \\_|\\ \\ \\  \\ \\  \\ \\  \\ \\  \\|\\  \\  ____________\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\ "
-        " \\ \\  \\ \\ \\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\|\\____________\\ \\  \\    \\ \\   ____\\ \\   ____\\"
-        "  \\ \\  \\_\\ \\ \\  \\ \\  \\ \\  \\ \\  \\\\  \\|____________|\\ \\  \\____\\ \\  \\___|\\ \\  \\___|"
-        "   \\ \\_______\\ \\__\\ \\__\\ \\__\\ \\_______\\              \\ \\_______\\ \\__\\    \\ \\__\\   "
-        "    \\|_______|\\|__|\\|__| \\|__|\\|_______|               \\|_______|\\|__|     \\|__|   "
-        "                                                                                   "
-        "                                                                                   "
-        "                                                                                   "
-        "                                                        C++ Modern Web Framework";
+    std::string name = "  _____  _                                   \n\
+ |  __ \\(_)                        _     _   \n\
+ | |  | |_ _ __   ___ ______ ___ _| |_ _| |_ \n\
+ | |  | | | '_ \\ / _ \\______/ __|_   _|_   _|\n\
+ | |__| | | | | | (_) |    | (__  |_|   |_|  \n\
+ |_____/|_|_| |_|\\___/      \\___|            \n\
+                                             \n\
+                            C++ Modern Web Framework";
     std::cout << logo << std::endl;
     std::cout << name << std::endl;
 }
 
-void MosaApp::bind(int port, std::string baseUrl = "www")
+void App::bind(int port, std::string baseUrl = "www")
 {
     this->server = new Mongoose::Server(port, baseUrl.c_str());
     this->server->start();
     std::cout << "Server started at port " << port << " with base name /" << baseUrl << std::endl;
     std::cout << "Loading app API" << std::endl;
+    this->bootstrapModule->registerControllers();
     while (true)
     {
         this_thread::sleep_for(chrono::milliseconds(500));
     }
+}
+
+void App::bootstrap(Module *m)
+{
+    this->bootstrapModule = m;
+    this->bootstrapModule->registerInjectables();
+    std::cout << "App configuration End" << std::endl;
 }

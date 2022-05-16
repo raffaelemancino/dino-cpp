@@ -1,7 +1,9 @@
 #pragma once
 
-#include "dino/models.hpp"
+#include "dino/injectable.hpp"
 #include "app.module.hpp"
+#include "dino/module.hpp"
+#include "dino/mongoose-cpp/mongoose/Request.h"
 
 #include <iostream>
 
@@ -34,6 +36,12 @@ public:
     void registerApi()
     {
         cout << "TC controller register api" << endl;
+        this->addRoute<TC>("GET", "/hello", &TC::hello);
+    }
+
+    void hello(Mongoose::Request &request, Mongoose::StreamResponse &response)
+    {
+        response << "Hello " << request.getMethod() << " " << request.getUrl() << std::endl;
     }
 };
 

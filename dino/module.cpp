@@ -1,4 +1,4 @@
-#include "mosasaurus.hpp"
+#include "module.hpp"
 
 using namespace Dino;
 
@@ -11,7 +11,6 @@ void Module::addController(IoC::Controller *controller)
     this->controllers[controller->name] = controller;
     std::cout << "Adding controller: " << controller->name << std::endl;
     controller->setContext(this);
-    this->registerController(controller);
 }
 
 void Module::addService(IoC::Injectable *service)
@@ -28,10 +27,18 @@ void Module::addModule(Module *m)
     std::cout << "Adding module: " << name << std::endl;
 }
 
-void Module::registerController(IoC::Controller *controller)
+void Module::registerControllers()
 {
-    controller->registerApi();
-    // Dino::MosaApp::getInstance()->getServerInstance()->registerController(controller);
+    for (const auto &controller : this->controllers)
+    {
+        controller.second->registerApi();
+        Dino::App::getInstance()->getServerInstance()->registerController(controller.second);
+    }
+
+    for (auto &module : this->imports)
+    {
+        module.second->registerControllers();
+    }
 }
 
 void Module::registerInjectables()

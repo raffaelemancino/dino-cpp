@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-#include "dino/models.hpp"
+#include "dino/injectable.hpp"
 
 #include "submodule.module.hpp"
 

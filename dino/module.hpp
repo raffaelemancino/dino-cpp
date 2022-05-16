@@ -1,15 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <map>
-#include <string>
-#include <vector>
-#include <cstring>
-#include <thread>
-
-#include "mongoose-cpp/mongoose/Server.h"
-
-#include "models.hpp"
+#include "app.hpp"
+#include "injectable.hpp"
 
 namespace Dino
 {
@@ -24,8 +16,6 @@ namespace Dino
 
         std::map<std::string, IoC::Injectable *> exportedServices;
         std::map<std::string, Module *> exportedModules;
-
-        void registerController(IoC::Controller *);
 
         IoC::Injectable *inject(std::string);
 
@@ -113,39 +103,10 @@ namespace Dino
          *  Compulsory function to avoid IoC in module
          */
         void registerInjectables();
-    };
-
-    class MosaApp
-    {
-    private:
-        static MosaApp *app;
-        Module *bootstrapModule = nullptr;
-        MosaApp();
-        void startupLogo();
-
-        // web server
-        Mongoose::Server *server = nullptr;
-
-    public:
-        static MosaApp *getInstance();
-
-        Mongoose::Server *getServerInstance();
 
         /**
-         * App start with first module
+         *  After server start register controllers and apis
          */
-        template <class M>
-        void bootstrap()
-        {
-            std::cout << "Loading App service and controllers..." << std::endl;
-            Module *firstModule = new M();
-            this->bootstrapModule = firstModule;
-            this->bootstrapModule->registerInjectables();
-            std::cout << "App configuration End" << std::endl;
-        };
-        /**
-         *  Start Web Server with port and base url
-         */
-        void bind(int, std::string);
+        void registerControllers();
     };
 }

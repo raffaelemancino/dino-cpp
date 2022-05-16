@@ -7,7 +7,7 @@ App *App::app = nullptr;
 App::App()
 {
     this->startupLogo();
-    std::cout << "App Init" << std::endl;
+    Logger::getInstance()->log("App init");
 }
 
 App *App::getInstance()
@@ -88,8 +88,8 @@ void App::bind(int port, std::string baseUrl = "www")
 {
     this->server = new Mongoose::Server(port, baseUrl.c_str());
     this->server->start();
-    std::cout << "Server started at port " << port << " with base name /" << baseUrl << std::endl;
-    std::cout << "Loading app API" << std::endl;
+    Logger::getInstance()->log("Server started at port " + to_string(port) + " with base name /" + baseUrl);
+    Logger::getInstance()->log("Loading app API");
     this->bootstrapModule->registerControllers();
     while (true)
     {
@@ -99,7 +99,8 @@ void App::bind(int port, std::string baseUrl = "www")
 
 void App::bootstrap(Module *m)
 {
+    m->name = "boot_module";
     this->bootstrapModule = m;
     this->bootstrapModule->registerInjectables();
-    std::cout << "App configuration End" << std::endl;
+    Logger::getInstance()->log("App configuration End");
 }

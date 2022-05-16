@@ -9,14 +9,14 @@ Module::Module()
 void Module::addController(IoC::Controller *controller)
 {
     this->controllers[controller->name] = controller;
-    std::cout << "Adding controller: " << controller->name << std::endl;
+    Logger::getInstance()->log("Adding controller: " + controller->name);
     controller->setContext(this);
 }
 
 void Module::addService(IoC::Injectable *service)
 {
     this->services[service->name] = service;
-    std::cout << "Adding service: " << service->name << std::endl;
+    Logger::getInstance()->log("Adding service: " + service->name);
     service->setContext(this);
 }
 
@@ -24,7 +24,7 @@ void Module::addModule(Module *m)
 {
     m->setParentModule(this);
     this->imports[m->name] = m;
-    std::cout << "Adding module: " << name << std::endl;
+    Logger::getInstance()->log("Adding module: " + m->name);
 }
 
 void Module::registerControllers()

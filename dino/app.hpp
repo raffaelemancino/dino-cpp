@@ -10,6 +10,7 @@
 #include "mongoose-cpp/mongoose/Server.h"
 
 #include "module.hpp"
+#include "utils.hpp"
 
 namespace Dino {
     class Module;
@@ -38,10 +39,11 @@ namespace Dino {
         template <class M>
         void bootstrap()
         {
-            std::cout << "Loading App service and controllers..." << std::endl;
+            Logger::getInstance()->log("Loading App service and controllers...");
             Module *firstModule = new M();
             this->bootstrap(firstModule);
         };
+
         /**
          *  Start Web Server with port and base url
          */

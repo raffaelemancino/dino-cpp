@@ -32,7 +32,14 @@ public:
 
 class TC : public IoC::RestController
 {
+private:
+    Test* t = nullptr;
+
 public:
+    void onLoadEnd() {
+        this->t = this->context->inject<Test>("test-component");
+    }
+
     void registerApi()
     {
         cout << "TC controller register api" << endl;
@@ -41,7 +48,7 @@ public:
 
     void hello(Mongoose::Request &request, Mongoose::StreamResponse &response)
     {
-        response << "Hello " << request.getMethod() << " " << request.getUrl() << std::endl;
+        response << "Hello " << request.getMethod() << " " << request.getUrl() << " - " << this->t->getA() << std::endl;
     }
 };
 

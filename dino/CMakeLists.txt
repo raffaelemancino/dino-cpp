@@ -6,6 +6,6 @@ project (Dino)
 
 add_subdirectory(mongoose-cpp)
 
-add_library(Dino app.cpp module.cpp injectable.cpp)
+add_library(Dino app.cpp module.cpp injectable.cpp utils.cpp)
 
 target_link_libraries(Dino PUBLIC mongoose)

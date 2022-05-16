@@ -9,7 +9,6 @@ namespace Dino
     {
     private:
         Module *parentModule = nullptr;
-        std::string name = "";
         std::map<std::string, IoC::Injectable *> services;
         std::map<std::string, IoC::Controller *> controllers;
         std::map<std::string, Module *> imports;
@@ -57,9 +56,9 @@ namespace Dino
         {
             if (std::is_base_of<Module, T>::value)
             {
-                Module *mosaModule = new T();
-                mosaModule->name = name;
-                this->addModule(mosaModule);
+                Module *module = new T();
+                module->name = name;
+                this->addModule(module);
             }
             else
             {
@@ -75,6 +74,8 @@ namespace Dino
         void addModule(Module *);
 
     public:
+        std::string name = "";
+
         /**
          * Inject service searching in self module and in child modules
          */

@@ -19,6 +19,8 @@ Boston, MA  02110-1301, USA.
 
 #pragma once
 
+#include <exception>
+
 #include "app.hpp"
 #include "injectable.hpp"
 

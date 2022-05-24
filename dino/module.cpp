@@ -88,7 +88,9 @@ void Module::addExportService(std::string name)
     }
     else
     {
-        throw std::runtime_error("No service with name: " + name + " can be exported");
+        std::string error = "No service with name: \"" + name + "\" can be exported";
+        Logger::getInstance()->err(error);
+        throw std::domain_error(error);
     }
 }
 
@@ -102,7 +104,9 @@ void Module::addExportModule(std::string name)
     }
     else
     {
-        throw std::runtime_error("No module with name: " + name + " can be exported");
+        std::string error = "No module with name: \"" + name + "\" can be exported";
+        Logger::getInstance()->err(error);
+        throw std::domain_error(error);
     }
 }
 
@@ -140,7 +144,8 @@ IoC::Injectable *Module::inject(std::string name)
     if (value)
         return value;
 
-    throw std::runtime_error("Injectable reference not foud for \"" + name + "\"");
+    Logger::getInstance()->err("Injectable reference not foud for \"" + name + "\"");
+    throw std::domain_error("Injectable reference not foud for \"" + name + "\"");
 }
 
 IoC::Injectable *Module::injectForModuleChild(std::string name)
